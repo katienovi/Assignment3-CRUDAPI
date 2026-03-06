@@ -32,6 +32,8 @@ This is a **CRUD API** (Create, Read, Update, Delete) that manages character rec
 - **U**pdate - Modify existing character records
 - **D**elete - Remove character records
 
+ You can find a demo video for this project here: https://uncg-my.sharepoint.com/:v:/r/personal/kewilliams4_uncg_edu/Documents/API-Presentation.mp4?csf=1&web=1&e=sKuQYv&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D 
+
 ---
 
 ## Technology Stack
@@ -92,7 +94,7 @@ The Maven Wrapper is a handy tool that ensures everyone working on the project u
 
    ```bash
    git clone <repository-url>
-   cd sp26-crud-api-demo
+   cd Assignment3-CRUDAPI
    ```
 
 2. **Install Dependencies**
@@ -139,7 +141,7 @@ The Maven Wrapper is a handy tool that ensures everyone working on the project u
    Edit `src/main/resources/application.properties` and add your Neon.tech PostgreSQL connection string:
 
    ```properties
-   spring.application.name=crud-api
+   spring.application.name=CRUD API
    spring.datasource.url=jdbc:postgresql://host:5432/dbname
    spring.datasource.username=your_neon_username
    spring.datasource.password=your_neon_password
@@ -263,12 +265,12 @@ Press `Ctrl+C` in your terminal to stop the running application. If using IDE GU
 ### Folder Structure
 
 ```
-src/main/java/com/csc340/crud_api/
-├── CrudApiApplication.java          # Entry point of the application
-├── StudentApiController.java         # Handles HTTP requests
-├── StudentService.java               # Business logic layer
-├── StudentRepository.java            # Database access layer
-└── Student.java                      # Entity/Model class
+src/main/java/com/csc340/homework/
+├── CrudApiApplication.java           # Entry point of the application
+├── CharacterApiController.java       # Handles HTTP requests
+├── CharacterService.java             # Business logic layer
+├── CharacterRepository.java          # Database access layer
+└── Character.java                    # Entity/Model class
 
 src/main/resources/
 └── application.properties             # Configuration file
@@ -285,21 +287,21 @@ This project follows a three-tier architecture pattern:
                  │
 ┌────────────────▼────────────────────┐
 │    Controller Layer                 │
-│  (StudentApiController)             │
+│  (CharacterApiController)           │
 │  - Handles HTTP requests/responses  │
 │  - Maps URLs to methods(endpoints)  │
 └────────────────┬────────────────────┘
                  │
 ┌────────────────▼────────────────────┐
 │    Service Layer                    │
-│  (StudentService)                   │
+│  (CharacterService)                 │
 │  - Contains business logic          │
 │  - Processes data from repositories │
 └────────────────┬────────────────────┘
                  │
 ┌────────────────▼────────────────────┐
 │    Repository Layer                 │
-│  (StudentRepository)                │
+│  (CharacterRepository)              │
 │  - Communicates with database       │
 │  - Performs CRUD operations         │
 └────────────────┬────────────────────┘
@@ -336,7 +338,7 @@ GET /api/characters/
 **Response**:
 
 - **Status Code**: `200 OK`
-- **Body**: Array of Student objects
+- **Body**: Array of Character objects
 
 #### Example Request
 
@@ -378,12 +380,12 @@ GET /api/characters/{id}
 
 **Path Parameters**:
 
-- `id` (Long, required): The unique identifier of the student
+- `id` (Long, required): The unique identifier of the character
 
 **Response**:
 
 - **Status Code**: `200 OK` (if found) or `404 Not Found` (if not found)
-- **Body**: Student object
+- **Body**: Character object
 
 #### Example Request
 
@@ -433,7 +435,7 @@ POST /api/characters/
 #### Example Request
 
 ```bash
-curl -X POST http://localhost:8080/api/characters/ \
+curl -X POST http://localhost:8080/api/characters/ 
   -H "Content-Type: application/json" \
   -d '{
     "description": "Haley is a villager who lives in Pelican Town. She's one of the twelve characters available to marry.",
@@ -473,6 +475,26 @@ GET /api/characters/gifts/{lovedGift}
 
 - **Status Code**: `200 OK`
 - **Body**: Array of character objects
+
+#### Example Request
+
+```bash
+curl http://localhost:8080/api/characters/gifts/Amethyst
+```
+
+#### Example Response (Status: 200 OK)
+
+```json
+[
+	{
+		"characterID": 3,
+		"description": "Abigail is a villager who lives at Pierre's General Store in Pelican Town. She's one of the twelve characters available to marry.",
+		"lovedGift": "Amethyst",
+		"marriageStatus": "Yes",
+		"name": "Abigail"
+	}
+]
+```
 
 ---
 
@@ -525,7 +547,7 @@ curl http://localhost:8080/api/characters/marriage/No
 ### 6. Search Characters by Name
 
 ```http
-GET /api/characters/search?name={ro}
+GET /api/characters/search?name={name}
 ```
 
 **Description**: Search for characters by name (partial match supported) or retrieve all characters if no name is provided.
@@ -588,7 +610,7 @@ PUT /api/characters/{id}
 #### Example Request
 
 ```bash
-curl -X PUT http://localhost:8080/api/students/1 \
+curl -X PUT http://localhost:8080/api/characters/1 
   -H "Content-Type: application/json" \
   -d '{
     "description": "Haley is a villager who lives in Pelican Town. She's one of the twelve characters available to marry.",
@@ -612,7 +634,7 @@ curl -X PUT http://localhost:8080/api/students/1 \
 
 ---
 
-### 9. Delete a StudCharacterent
+### 9. Delete a Character
 
 ```http
 DELETE /api/characters/{id}
