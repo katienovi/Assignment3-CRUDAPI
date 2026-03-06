@@ -350,7 +350,6 @@ curl http://localhost:8080/api/characters/
 
 ```json
 [
- [
 	{
 		"characterID": 1,
 		"description": "Krobus is the only friendly monster players will encounter, however he still refers to other hostile monsters as his friends. He is a shadow person who lives in the Sewers.",
@@ -423,6 +422,7 @@ POST /api/characters/
 
 **Request Body**: Character object with the following fields:
 
+- `description ` (String, required): Characters description
 - `name` (String, required): Characters name
 - `lovedGift` (String, optional): Character's loved gift
 - `marriageStatus` (String, optional): Character's marriage status (yes or no)
@@ -610,7 +610,7 @@ PUT /api/characters/{id}
 #### Example Request
 
 ```bash
-curl -X PUT http://localhost:8080/api/characters/1 
+curl -X PUT http://localhost:8080/api/characters/8 
   -H "Content-Type: application/json" \
   -d '{
     "description": "Haley is a villager who lives in Pelican Town. She's one of the twelve characters available to marry.",
@@ -736,7 +736,7 @@ public class Character {
 ```
 
 - `@Entity`: Marks this class as a database table
-- `@Table(name = "students")`: Specifies the table name
+- `@Table(name = "characters")`: Specifies the table name
 - `@Id`: Marks the primary key field
 - `@GeneratedValue`: Auto-generates IDs (database handles increment)
 
