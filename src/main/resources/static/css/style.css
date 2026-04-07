@@ -1,0 +1,28 @@
+#new-character {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 20px;
+    padding: 30px;
+    gap: 15px;
+    border: 1px solid;
+    border-color:darkgreen;
+}
+
+#submit, #cancel{
+    border-radius: 6px;
+    width: 100px;
+}
+
+#name, #lovedGift{
+    width: 100px;
+}
+
+#marriageStatus {
+    width: 150px;
+}
+
+#description{
+    width: 300px;
+}
+
