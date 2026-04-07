@@ -1,12 +1,20 @@
 package csc340.homework;
 
+
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class CharacterService {
     
     private final CharacterRepository characterRepository;
+    private static final String UPLOAD_DIR = "src/main/resources/static/Images/";
 
     public CharacterService(CharacterRepository characterRepository){
         this.characterRepository = characterRepository;
@@ -52,4 +60,30 @@ public class CharacterService {
         return characterRepository.findByMarriageStatus(marriageStatus);
     }
 
+    public void saveProfilePicture(Character character, MultipartFile profilePicture) {
+    if (profilePicture == null || profilePicture.isEmpty()) {
+      return;// No picture uploaded, skip saving
+    }
+    String originalFileName = profilePicture.getOriginalFilename();
+    try {
+      if (originalFileName != null && originalFileName.contains(".")) {
+        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+        String fileName = String.valueOf(character.getCharacterID()) + "." + fileExtension;
+        Path filePath = Paths.get(UPLOAD_DIR + fileName);
+
+        InputStream inputStream = profilePicture.getInputStream();
+
+        Files.createDirectories(Paths.get(UPLOAD_DIR));// Ensure directory exists
+        Files.copy(inputStream, filePath,
+            StandardCopyOption.REPLACE_EXISTING);// Save picture file
+        character.setProfilePicturePath(fileName);
+        characterRepository.save(character);// Update student with picture path
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
 }
+
+

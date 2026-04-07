@@ -27,6 +27,8 @@ public class Character {
   @Column(nullable = false)
   private String marriageStatus;
 
+  private String profilePicturePath;
+
   public Character() {
   }
 
@@ -83,6 +85,14 @@ public class Character {
 
     public void setMarriageStatus(String marriageStatus){
         this.marriageStatus = marriageStatus;
+    }
+
+    public String getProfilePicturePath(){
+        return profilePicturePath;
+    }
+
+    public void setProfilePicturePath(String profilePicturePath){
+        this.profilePicturePath = profilePicturePath;
     }
 
 }

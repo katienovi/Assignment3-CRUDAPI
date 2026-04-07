@@ -69,7 +69,7 @@ public class CharacterApiController {
   }
 
   /**
-   * Endpoint to retrieve students by their loved gifts.
+   * Endpoint to retrieve characters by their loved gifts.
    *
    * @param lovedGifts The loved gifts to filter students by, provided as a path variable.
    * @return ResponseEntity containing a collection of characters with the specified
@@ -103,7 +103,7 @@ public class CharacterApiController {
   }
 
   /**
-   * Endpoint to retrieve a student by their marriage status.
+   * Endpoint to retrieve a character by their marriage status.
    *
    * @param marriageStatus The marriage status of the character to retrieve, provided as a
    *              request parameter.
